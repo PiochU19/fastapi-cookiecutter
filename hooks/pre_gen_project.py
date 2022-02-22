@@ -28,7 +28,7 @@ def append_post_processing_informations(
     by appending to list, and saving to file at the end."""
 
     # to avoid any naming collision
-    old_var = f"{project_slug}_{old_var}"
+    old_var = project_slug + old_var
 
     post_processing_infomations.append((old_var, new_var, tuple_of_files))
 

@@ -1,4 +1,7 @@
+import os
+import sys
 from ast import literal_eval
+from typing import List, Tuple
 
 import pandas as pd
 
@@ -37,10 +40,41 @@ def process_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def replace_old_vars_with_new_ones(df: pd.DataFrame) -> None:
+
+    for _, row in df.iterrows():
+
+        file_path: str = row[0]
+        list_of_tuples_of_vars: List[Tuple[str | int]] = row[1]
+
+        # fetch content of the file
+        with open(file_path, "r") as read_file:
+            file_content = read_file.read()
+
+        # replace all variables in this file
+        for old_var, new_var in list_of_tuples_of_vars:
+            print("Replacing ", old_var, new_var)
+            file_content = file_content.replace(str(old_var), str(new_var))
+
+        # save processed content
+        with open(file_path, "w") as write_file:
+            write_file.write(file_content)
+
+
 def main():
-    ...
+    """Call all functions here."""
+
+    # read csv file and process
+    df = pd.read_csv(FILE_NAME)
+    df = process_dataframe(df)
+
+    replace_old_vars_with_new_ones(df)
+
+    os.remove(FILE_NAME)
 
 
 if __name__ == "__main__":
-    ...
-    # main()
+
+    main()
+
+    sys.exit(0)
