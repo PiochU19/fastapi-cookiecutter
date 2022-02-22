@@ -21,7 +21,7 @@ def save_to_file() -> None:
     df.to_csv(FILE_NAME, index=False)
 
 
-def append_post_processing_inforamtions(
+def append_post_processing_informations(
     old_var: str, new_var: str, tuple_of_files: Tuple[str]
 ) -> None:
     """In order to make post processing, we need to save metadata informations
@@ -44,7 +44,7 @@ def set_number_of_workers() -> None:
         "{{ cookiecutter.update({'no_of_workers': cookiecutter.project_slug + 'no_of_workers' }) }}"
 
         tuple_of_affected_files = (os.path.join("docker", "develop", "entrypoint.sh"),)
-        append_post_processing_inforamtions(
+        append_post_processing_informations(
             "no_of_workers", no_of_workers, tuple_of_affected_files
         )
 
