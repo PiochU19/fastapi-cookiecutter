@@ -21,7 +21,6 @@ COPY ./requirements.local.txt .
 # install wheels
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /wheels -r requirements.local.txt
 
-
 #######
 # RUN #
 #######
@@ -46,8 +45,9 @@ COPY --from=build-stage /wheels /wheels/
 RUN pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* \
     && rm -rf /wheels/
 
-# COPY app folder
+# COPY app and tests folders and entrypoint
 COPY ./app ./app
+COPY ./tests ./tests
 COPY ./docker/local/entrypoint.sh .
 
 RUN ["chmod", "+x", "/entrypoint.sh"]
