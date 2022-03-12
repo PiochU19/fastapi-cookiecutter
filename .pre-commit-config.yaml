@@ -32,8 +32,3 @@ repos:
       rev: 0.1.0
       hooks:
           - id: yamlfmt
-
-    - repo: https://github.com/PyCQA/flake8
-      rev: 4.0.1
-      hooks:
-          - id: flake8
