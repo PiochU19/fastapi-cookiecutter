@@ -48,7 +48,7 @@ RUN pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* \
 
 # COPY app folder
 COPY ./app ./app
-COPY ./docker/local/entrypoint.sh .
+COPY ./docker/prod/entrypoint.sh .
 
 RUN ["chmod", "+x", "entrypoint.sh"]
 
