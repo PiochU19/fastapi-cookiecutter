@@ -11,5 +11,4 @@ then
     echo "PostgreSQL started"
 fi
 
-# for local development, uvicorn is used
-exec "uvicorn --reload --host 0.0.0.0 --port {{ cookiecutter.app_port }} app.main:app"
+exec "$@"

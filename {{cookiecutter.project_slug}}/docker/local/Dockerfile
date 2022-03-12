@@ -16,6 +16,7 @@ RUN apt-get update && \
 RUN pip install --upgrade pip
 
 # copy local requirements file
+COPY ./requirements.txt .
 COPY ./requirements.local.txt .
 
 # install wheels
@@ -50,6 +51,8 @@ COPY ./app ./app
 COPY ./tests ./tests
 COPY ./docker/local/entrypoint.sh .
 
-RUN ["chmod", "+x", "/entrypoint.sh"]
+RUN ["chmod", "+x", "entrypoint.sh"]
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/usr/src/entrypoint.sh"]
+CMD ["uvicorn", "--reload", "--host", "0.0.0.0", "--port", \
+    "{{ cookiecutter.app_port }}", "app.main:app"]

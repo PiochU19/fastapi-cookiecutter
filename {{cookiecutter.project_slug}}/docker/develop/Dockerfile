@@ -50,6 +50,15 @@ RUN pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* \
 COPY ./app ./app
 COPY ./docker/local/entrypoint.sh .
 
-RUN ["chmod", "+x", "/entrypoint.sh"]
+RUN ["chmod", "+x", "entrypoint.sh"]
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/usr/src/entrypoint.sh"]
+
+{% if cookiecutter.server == "uvicorn" %}
+CMD ["uvicorn", "--host", "0.0.0.0", "--port", \
+    "{{ cookiecutter.no_of_workers }}", "app.main:app"]
+{% elif cookiecutter.server == "gunicorn" %}
+CMD ["gunicorn", "-w", "{{ cookiecutter.no_of_workers }}", \
+    "-k", "uvicorn.workers.UvicornWorker", "-b", \
+    "0.0.0.0:{{ cookiecutter.app_port }}", "app.main:app"]
+{% endif %}
