@@ -3,5 +3,6 @@
     "project_name": "FastAPI default project name",
     "project_slug": "{{ cookiecutter.project_name.lower()|replace(' ', '-')|replace('_', '-')|replace('.', '-')|trim() }}",
     "server": ["uvicorn", "gunicorn"],
-    "app_port": 8000
+    "app_port": 8000,
+    "postgres_version": [10, 11, 12, 13, 14]
 }

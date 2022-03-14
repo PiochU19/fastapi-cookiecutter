@@ -53,7 +53,6 @@ def main():
     """Call all functions here."""
 
     set_number_of_workers()
-
     save_to_file()
 
 

@@ -19,6 +19,20 @@ def implode(df: pd.DataFrame, column: str) -> pd.DataFrame:
     return df
 
 
+def change_file_names() -> None:
+    """Change names of the files that should be hidden from git by
+    gitignore."""
+    for root, _, files in os.walk("."):
+        for file in files:
+            print(file)
+            if not file.endswith(".ignore"):
+                continue
+
+            path = os.path.join(root, file)
+            print(path, "\n")
+            os.rename(path, path[:-7])
+
+
 def process_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     """Process dataframe in order to open file only once."""
 
@@ -71,6 +85,8 @@ def main():
     replace_old_vars_with_new_ones(df)
 
     os.remove(FILE_NAME)
+
+    change_file_names()
 
 
 if __name__ == "__main__":
