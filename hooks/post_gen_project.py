@@ -24,12 +24,10 @@ def change_file_names() -> None:
     gitignore."""
     for root, _, files in os.walk("."):
         for file in files:
-            print(file)
             if not file.endswith(".ignore"):
                 continue
 
             path = os.path.join(root, file)
-            print(path, "\n")
             os.rename(path, path[:-7])
 
 
