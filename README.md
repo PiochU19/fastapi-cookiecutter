@@ -2,12 +2,10 @@
 
 Builded with the help of [cookiecutter-django](https://github.com/cookiecutter/cookiecutter-django), [cookiecutter-fastapi](https://github.com/Dectinc/cookiecutter-fastapi) and [cookiecutter docs](https://cookiecutter.readthedocs.io/en/2.0.2/).
 
-
 ## Done
 
 - Dockerizing
 - docker-compose integration
-
 
 ## TODO:
 
@@ -20,3 +18,4 @@ Builded with the help of [cookiecutter-django](https://github.com/cookiecutter/c
 - email sender
 - proxy (Traefik or Nginx)
 - URL prefix
+- FastAPI testing with database
