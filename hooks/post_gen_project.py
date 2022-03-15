@@ -53,7 +53,6 @@ def process_dataframe(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def replace_old_vars_with_new_ones(df: pd.DataFrame) -> None:
-
     for _, row in df.iterrows():
 
         file_path: str = row[0]
