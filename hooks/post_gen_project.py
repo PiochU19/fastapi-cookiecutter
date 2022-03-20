@@ -12,16 +12,26 @@ FILE_NAME = "helper.csv"
 
 def implode(df: pd.DataFrame, column: str) -> pd.DataFrame:
     """Opposite of pandas explode function."""
-
     keys = [c for c in df if c != column]
     df = df.groupby(keys, as_index=False).agg({column: list})[df.columns]
 
     return df
 
 
+def change_file_names() -> None:
+    """Change names of the files that should be hidden from git by
+    gitignore."""
+
+    for root, _, files in os.walk("."):
+        for file in files:
+            if not file.endswith(".ignore"):
+                continue
+            path = os.path.join(root, file)
+            os.rename(path, path[:-7])
+
+
 def process_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     """Process dataframe in order to open file only once."""
-
     vars_columns = [FILE_COLUMNS[0], FILE_COLUMNS[1]]
 
     # combinde old and new variable to tuple and drop
@@ -41,9 +51,7 @@ def process_dataframe(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def replace_old_vars_with_new_ones(df: pd.DataFrame) -> None:
-
     for _, row in df.iterrows():
-
         file_path: str = row[0]
         list_of_tuples_of_vars: List[Tuple[str | int]] = row[1]
 
@@ -69,12 +77,10 @@ def main():
     df = process_dataframe(df)
 
     replace_old_vars_with_new_ones(df)
-
     os.remove(FILE_NAME)
+    change_file_names()
 
 
 if __name__ == "__main__":
-
     main()
-
     sys.exit(0)
