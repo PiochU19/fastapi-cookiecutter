@@ -38,7 +38,9 @@ WORKDIR ${WORKDIR}
 
 # install dependepncies
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends gcc
+    apt-get install -y --no-install-recommends gcc && \
+    apt-get install -y netcat && \
+    apt-get install build-essential libpq-dev
 
 # copy wheels from build stage
 # and install them
@@ -48,11 +50,6 @@ RUN pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* \
 
 # COPY app folder
 COPY ./app ./app
-COPY ./docker/prod/entrypoint.sh .
-
-RUN ["chmod", "+x", "entrypoint.sh"]
-
-ENTRYPOINT ["/usr/src/entrypoint.sh"]
 
 {% if cookiecutter.server == "uvicorn" %}
 CMD ["uvicorn", "--host", "0.0.0.0", "--port", \

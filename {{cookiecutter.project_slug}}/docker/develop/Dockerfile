@@ -15,12 +15,12 @@ RUN apt-get update && \
 
 RUN pip install --upgrade pip
 
-# copy local requirements file
+# copy develop requirements file
 COPY ./requirements.txt .
-COPY ./requirements.local.txt .
+COPY ./requirements.develop.txt .
 
 # install wheels
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /wheels -r requirements.local.txt
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /wheels -r requirements.develop.txt
 
 #######
 # RUN #
@@ -38,7 +38,9 @@ WORKDIR ${WORKDIR}
 
 # install dependepncies
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends gcc
+    apt-get install -y --no-install-recommends gcc && \
+    apt-get install -y netcat && \
+    apt-get install -y build-essential libpq-dev
 
 # copy wheels from build stage
 # and install them
@@ -49,7 +51,7 @@ RUN pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* \
 # COPY app and tests folders and entrypoint
 COPY ./app ./app
 COPY ./tests ./tests
-COPY ./docker/local/entrypoint.sh .
+COPY ./docker/develop/entrypoint.sh .
 
 RUN ["chmod", "+x", "entrypoint.sh"]
 
