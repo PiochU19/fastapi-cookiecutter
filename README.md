@@ -7,6 +7,7 @@ Builded with the help of [cookiecutter-django](https://github.com/cookiecutter/c
 - Dockerizing
 - docker-compose integration
 - PostgreSQL integration
+- async SQL Alchemy
 
 ## TODO:
 
@@ -14,7 +15,6 @@ Builded with the help of [cookiecutter-django](https://github.com/cookiecutter/c
 - GitHub Actions (EC2/ECR/lambda)
 - CORS
 - Throttling
-- async SQL Alchemy
 - email sender
 - proxy (Traefik or Nginx)
 - URL prefix
