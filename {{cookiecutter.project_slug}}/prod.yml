@@ -9,24 +9,6 @@ services:
       dockerfile: ./docker/prod/Dockerfile
     ports:
       - "{{ cookiecutter.app_port }}:{{ cookiecutter.app_port }}"
-    volumes:
-      - ./app:/usr/src/app
-      - ./tests:/usr/src/tests
     env_file:
       - ./docker/prod/.db.env
       - ./docker/prod/.env
-    networks:
-      - {{ cookiecutter.project_slug }}-prod-network
-
-  db:
-    image: postgres:{{ cookiecutter.postgres_version }}-alpine
-    container_name: {{ cookiecutter.project_slug }}-local-postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    env_file:
-      - ./docker/local/.db.env
-    networks:
-      - {{ cookiecutter.project_slug }}-local-network
-
-networks:
-  {{ cookiecutter.project_slug }}-prod-network:

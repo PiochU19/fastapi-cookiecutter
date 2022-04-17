@@ -1,0 +1,35 @@
+---
+version: '3.9'
+
+services:
+  fastapi:
+    image: {{ cookiecutter.project_slug }}-develop
+    build:
+      context: ./
+      dockerfile: ./docker/develop/Dockerfile
+    ports:
+      - "{{ cookiecutter.app_port }}:{{ cookiecutter.app_port }}"
+    volumes:
+      - ./app:/usr/src/app
+      - ./tests:/usr/src/tests
+    env_file:
+      - ./docker/develop/.db.env
+      - ./docker/develop/.env
+    networks:
+      - {{ cookiecutter.project_slug }}-develop-network
+
+  db:
+    image: postgres:{{ cookiecutter.postgres_version }}-alpine
+    container_name: {{ cookiecutter.project_slug }}-develop-postgres
+    ports:
+      - "5431:5432"
+    env_file:
+      - ./docker/develop/.db.env
+    networks:
+      - {{ cookiecutter.project_slug }}-develop-network
+
+networks:
+  {{ cookiecutter.project_slug }}-develop-network:
+
+volumes:
+  postgres_data:

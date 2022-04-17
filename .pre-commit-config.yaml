@@ -10,10 +10,10 @@ repos:
     - repo: https://github.com/hadialqattan/pycln
       rev: v1.1.0
       hooks:
-          - id: pycln  # removing unused imports
+          - id: pycln # removing unused imports
 
     - repo: https://github.com/miki725/importanize
-      rev: master  # any of version worked, forced to use master
+      rev: master # any of version worked, forced to use master
       hooks:
           - id: importanize # sort imports
             args: [--length=88]
@@ -21,12 +21,12 @@ repos:
     - repo: https://github.com/psf/black
       rev: 21.12b0
       hooks:
-          - id: black  # black formatter
+          - id: black # black formatter
 
     - repo: https://github.com/myint/docformatter
       rev: v1.4
       hooks:
-          - id: docformatter  # format docstrings
+          - id: docformatter # format docstrings
 
     - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
       rev: 0.1.0
