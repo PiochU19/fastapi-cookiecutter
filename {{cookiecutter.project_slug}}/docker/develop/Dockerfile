@@ -29,6 +29,7 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir /wheels -r requirements.devel
 FROM python as run-stage
 
 ARG WORKDIR=/usr/src
+ARG APP_WORKDIR=/usr/src/app
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -53,8 +54,12 @@ COPY ./app ./app
 COPY ./tests ./tests
 COPY ./docker/develop/entrypoint.sh .
 
+# add permission to execute entrypoint
 RUN ["chmod", "+x", "entrypoint.sh"]
+
+# change directory in order to run application
+WORKDIR ${APP_WORKDIR}
 
 ENTRYPOINT ["/usr/src/entrypoint.sh"]
 CMD ["uvicorn", "--reload", "--host", "0.0.0.0", "--port", \
-    "{{ cookiecutter.app_port }}", "app.main:app"]
+    "{{ cookiecutter.app_port }}", "main:app"]
