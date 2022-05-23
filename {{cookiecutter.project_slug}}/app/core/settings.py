@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Any, Dict, List
 
-from app.core.exceptions import AppConfigurationException
+from core.exceptions import AppConfigurationException
 from pydantic import BaseSettings, Field, root_validator, validator
 
 

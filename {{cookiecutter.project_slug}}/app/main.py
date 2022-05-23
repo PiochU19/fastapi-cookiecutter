@@ -1,4 +1,4 @@
-from app.core import settings
+from core import settings
 from fastapi import FastAPI
 
 
