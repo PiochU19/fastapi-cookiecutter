@@ -29,6 +29,7 @@ RUN pip wheel --no-cache-dir --no-deps --wheel-dir /wheels -r requirements.txt
 FROM python as run-stage
 
 ARG WORKDIR=/usr/src
+ARG APP_WORKDIR=/usr/src/app
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -51,11 +52,15 @@ RUN pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* \
 # COPY app folder
 COPY ./app ./app
 
+# change directory in order to run application
+WORKDIR ${APP_WORKDIR}
+
+# run server
 {% if cookiecutter.server == "uvicorn" %}
 CMD ["uvicorn", "--host", "0.0.0.0", "--port", \
-    "{{ cookiecutter.no_of_workers }}", "app.main:app"]
+    "{{ cookiecutter.no_of_workers }}", "main:app"]
 {% elif cookiecutter.server == "gunicorn" %}
 CMD ["gunicorn", "-w", "{{ cookiecutter.no_of_workers }}", \
     "-k", "uvicorn.workers.UvicornWorker", "-b", \
-    "0.0.0.0:{{ cookiecutter.app_port }}", "app.main:app"]
+    "0.0.0.0:{{ cookiecutter.app_port }}", "main:app"]
 {% endif %}

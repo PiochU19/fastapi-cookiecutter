@@ -60,6 +60,7 @@ RUN ["chmod", "+x", "entrypoint.sh"]
 # change directory in order to run application
 WORKDIR ${APP_WORKDIR}
 
+# run entrypoint and server
 ENTRYPOINT ["/usr/src/entrypoint.sh"]
 CMD ["uvicorn", "--reload", "--host", "0.0.0.0", "--port", \
     "{{ cookiecutter.app_port }}", "main:app"]
