@@ -2,7 +2,13 @@ from core import settings
 from fastapi import FastAPI
 
 
-app = FastAPI()
+def get_application() -> FastAPI:
+    app = FastAPI()
+
+    return app
+
+
+app = get_application()
 
 
 @app.get("/")
